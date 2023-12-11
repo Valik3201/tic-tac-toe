@@ -1,0 +1,95 @@
+@import "variables";
+@import "mixins";
+
+.game-board {
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+
+  &__turn-prompt {
+    @include apply-heading($heading-xs);
+
+    gap: 13px;
+    padding: 13px 30px 19px 30px;
+    border-radius: 10px;
+    background: $semi-dark-navy;
+    box-shadow: 0px -4px 0px 0px #10212a inset;
+    margin-left: 88px;
+    margin-right: 106px;
+  }
+
+  &__button {
+    box-sizing: border-box;
+    border: none;
+    cursor: pointer;
+    height: 52px;
+
+    &--restart {
+      padding: 16px;
+      border-radius: 10px;
+      background-color: $silver;
+      box-shadow: 0px -4px 0px 0px #6b8997 inset;
+
+      &:hover {
+        background-color: $silver-hover;
+      }
+    }
+  }
+
+  &__field {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  &__cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    width: 140px;
+    height: 140px;
+    border-radius: 15px;
+    background-color: $semi-dark-navy;
+    box-shadow: 0px -8px 0px 0px #10212a inset;
+    cursor: pointer;
+  }
+
+  &__scores {
+    color: $dark-navy;
+    gap: 20px;
+
+    div {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      flex-shrink: 0;
+      width: 140px;
+      height: 72px;
+      border-radius: 15px;
+    }
+  }
+
+  &__player-score,
+  &__player-1-score {
+    background-color: $light-blue;
+  }
+
+  &__cpu-score,
+  &__player-2-score {
+    background-color: $light-yellow;
+  }
+
+  &__ties-score {
+    background-color: $silver;
+  }
+
+  &__score-label {
+    @include apply-heading($body);
+  }
+
+  &__score {
+    @include apply-heading($heading-m);
+  }
+}

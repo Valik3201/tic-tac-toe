@@ -1,0 +1,15 @@
+@import "variables";
+
+.custom-logo {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+
+  &--x {
+    fill: $light-blue;
+  }
+
+  &--o {
+    fill: $light-yellow;
+  }
+}
