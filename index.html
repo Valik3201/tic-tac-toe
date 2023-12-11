@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="./app/scss/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <div class="game-menu flex">
+        <div class="custom-logo">
+          <svg
+            class="custom-logo--x"
+            width="32"
+            height="32"
+            fill="currentColor"
+          >
+            <use xlink:href="./app/assets/icons.svg#icon-x"></use>
+          </svg>
+          <svg
+            class="custom-logo--o"
+            width="32"
+            height="32"
+            fill="currentColor"
+          >
+            <use xlink:href="./app/assets/icons.svg#icon-o"></use>
+          </svg>
+        </div>
+
+        <div class="game-menu__player-mark flex flex-jc-c flex-ai-c">
+          <div class="game-menu__pick-mark">
+            <p class="game-menu__prompt">Pick player 1's mark</p>
+            <div class="game-menu__buttons flex flex-ai-c flex-jc-c">
+              <button class="game-menu__mark-btn game-menu__mark-btn--x">
+                <svg width="32" height="32" fill="currentColor">
+                  <use xlink:href="./app/assets/icons.svg#icon-x"></use>
+                </svg>
+              </button>
+              <button class="game-menu__mark-btn game-menu__mark-btn--o">
+                <svg width="32" height="32" fill="currentColor">
+                  <use xlink:href="./app/assets/icons.svg#icon-o"></use>
+                </svg>
+              </button>
+            </div>
+            <div class="game-menu__reminder">
+              <p>Remember : X goes first</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-menu__start-options flex">
+          <button class="game-menu__start-btn game-menu__start-btn--vs-cpu">
+            New Game (vs CPU)
+          </button>
+          <button class="game-menu__start-btn game-menu__start-btn--vs-player">
+            New Game (vs player)
+          </button>
+        </div>
+      </div>
+
+      <div class="game-board flex">
+        <div class="game-board__info flex flex-ai-c">
+          <div class="custom-logo">
+            <svg
+              class="custom-logo--x"
+              width="32"
+              height="32"
+              fill="currentColor"
+            >
+              <use xlink:href="./app/assets/icons.svg#icon-x"></use>
+            </svg>
+            <svg
+              class="custom-logo--o"
+              width="32"
+              height="32"
+              fill="currentColor"
+            >
+              <use xlink:href="./app/assets/icons.svg#icon-o"></use>
+            </svg>
+          </div>
+          <div class="game-board__turn-prompt flex flex-ai-c">
+            <svg
+              width="20"
+              height="20"
+              fill="currentColor"
+              class="game-board__turn-mark"
+            >
+              <use xlink:href="./app/assets/icons.svg#icon-x"></use>
+            </svg>
+            <p>turn</p>
+          </div>
+          <div>
+            <button class="game-board__button game-board__button--restart">
+              <svg width="20" height="20" fill="currentColor">
+                <use xlink:href="./app/assets/icons.svg#icon-redo"></use>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="game-board__field"></div>
+
+        <div class="game-board__scores flex flex-ai-c flex-jc-sb">
+          <!-- Your score -->
+          <div class="game-board__player-score">
+            <p class="game-board__score-label">X (YOU)</p>
+            <p class="game-board__score" id="playerScore">0</p>
+          </div>
+
+          <!-- 1 player score -->
+          <div class="game-board__player-1-score">
+            <p class="game-board__score-label">X (P1)</p>
+            <p class="game-board__score" id="player1Score">0</p>
+          </div>
+
+          <!-- Ties score -->
+          <div class="game-board__ties-score">
+            <p class="game-board__score-label">TIES</p>
+            <p class="game-board__score" id="tiesScore">0</p>
+          </div>
+
+          <!-- 2 player score -->
+          <div class="game-board__player-2-score">
+            <p class="game-board__score-label">O (P2)</p>
+            <p class="game-board__score" id="player2Score">0</p>
+          </div>
+
+          <!-- CPU score -->
+          <div class="game-board__cpu-score">
+            <p class="game-board__score-label">O (CPU)</p>
+            <p class="game-board__score" id="cpuScore">0</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal">
+        <div class="modal__message">
+          <p class="modal__text">Oh no, you lost</p>
+          <p class="modal__text modal__win-message">
+            You won! Player
+            <span class="modal__player-number">1</span> wins!
+          </p>
+        </div>
+
+        <div class="modal__options">
+          <p class="modal__text">takes the round</p>
+          <p class="modal__text modal__round-tied">Round tied</p>
+          <button class="modal__button modal__quit">Quit</button>
+          <button class="modal__button modal__next-round">Next round</button>
+          <button class="modal__button modal__cancel">No, cancel</button>
+          <button class="modal__button modal__restart-confirmed">
+            Yes, restart
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <script src="./app/js/script.js"></script>
+  </body>
+</html>
