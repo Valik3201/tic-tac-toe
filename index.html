@@ -33,16 +33,20 @@
           <div class="game-menu__pick-mark">
             <p class="game-menu__prompt">Pick player 1's mark</p>
             <div class="game-menu__buttons flex flex-ai-c flex-jc-c">
-              <button class="game-menu__mark-btn game-menu__mark-btn--x">
-                <svg width="32" height="32" fill="currentColor">
-                  <use xlink:href="./app/assets/icons.svg#icon-x"></use>
-                </svg>
-              </button>
-              <button class="game-menu__mark-btn game-menu__mark-btn--o">
-                <svg width="32" height="32" fill="currentColor">
-                  <use xlink:href="./app/assets/icons.svg#icon-o"></use>
-                </svg>
-              </button>
+              <div class="game-menu__buttons--wrapper">
+                <button
+                  class="game-menu__mark-btn game-menu__mark-btn--x active"
+                >
+                  <svg width="32" height="32" fill="currentColor">
+                    <use xlink:href="./app/assets/icons.svg#icon-x"></use>
+                  </svg>
+                </button>
+                <button class="game-menu__mark-btn game-menu__mark-btn--o">
+                  <svg width="32" height="32" fill="currentColor">
+                    <use xlink:href="./app/assets/icons.svg#icon-o"></use>
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="game-menu__reminder">
               <p>Remember : X goes first</p>
@@ -91,8 +95,8 @@
             </svg>
             <p>turn</p>
           </div>
-          <div>
-            <button class="game-board__button game-board__button--restart">
+          <div class="game-board__button">
+            <button class="game-board__button--restart">
               <svg width="20" height="20" fill="currentColor">
                 <use xlink:href="./app/assets/icons.svg#icon-redo"></use>
               </svg>
@@ -102,37 +106,7 @@
 
         <div class="game-board__field"></div>
 
-        <div class="game-board__scores flex flex-ai-c flex-jc-sb">
-          <!-- Your score -->
-          <div class="game-board__player-score">
-            <p class="game-board__score-label">X (YOU)</p>
-            <p class="game-board__score" id="playerScore">0</p>
-          </div>
-
-          <!-- 1 player score -->
-          <div class="game-board__player-1-score">
-            <p class="game-board__score-label">X (P1)</p>
-            <p class="game-board__score" id="player1Score">0</p>
-          </div>
-
-          <!-- Ties score -->
-          <div class="game-board__ties-score">
-            <p class="game-board__score-label">TIES</p>
-            <p class="game-board__score" id="tiesScore">0</p>
-          </div>
-
-          <!-- 2 player score -->
-          <div class="game-board__player-2-score">
-            <p class="game-board__score-label">O (P2)</p>
-            <p class="game-board__score" id="player2Score">0</p>
-          </div>
-
-          <!-- CPU score -->
-          <div class="game-board__cpu-score">
-            <p class="game-board__score-label">O (CPU)</p>
-            <p class="game-board__score" id="cpuScore">0</p>
-          </div>
-        </div>
+        <div class="game-board__scores flex flex-ai-c flex-jc-sb"></div>
       </div>
 
       <div class="modal">
@@ -161,6 +135,6 @@
       </div>
     </main>
 
-    <script src="./app/js/script.js"></script>
+    <script type="module" src="./app/js/main.js"></script>
   </body>
 </html>
