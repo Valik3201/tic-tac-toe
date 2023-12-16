@@ -1,9 +1,7 @@
 import {
-  currentPlayer,
-  board,
-  resetWinner,
   toggleGameEnded,
   setWinnerToCurrentPlayer,
+  resetWinner,
 } from "./gameFunctions.js";
 
 import {
@@ -13,7 +11,7 @@ import {
   incrementTiesScore,
 } from "./scores.js";
 
-export function checkWinner() {
+export function checkWinner(board, player) {
   const winPatterns = [
     [0, 1, 2],
     [3, 4, 5],
@@ -28,17 +26,20 @@ export function checkWinner() {
   for (const pattern of winPatterns) {
     const [a, b, c] = pattern;
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-      console.log("Игрок", currentPlayer, "побеждает!");
+      console.log(
+        "%cИгрок " + player + " побеждает!",
+        "color: lawngreen; font-weight: bold;"
+      );
+
+      toggleGameEnded(true);
 
       setWinnerToCurrentPlayer();
 
-      if (currentPlayer === "X") {
+      if (player === "X") {
         incrementPlayer1Score();
-      } else if (currentPlayer === "O") {
+      } else if (player === "O") {
         incrementPlayer2Score();
       }
-
-      toggleGameEnded();
 
       updateScores();
 
@@ -48,7 +49,7 @@ export function checkWinner() {
           const cell = document.querySelector(
             `.game-board__cell[data-index="${index}"]`
           );
-          cell.classList.add(`winner-${currentPlayer.toLowerCase()}`);
+          cell.classList.add(`winner-${player.toLowerCase()}`);
         }, i * 500); // Задержка в миллисекундах между добавлениями классов
       });
 
@@ -58,12 +59,17 @@ export function checkWinner() {
 
   const isBoardFull = board.every((cell) => cell !== "");
   if (isBoardFull) {
-    console.log("Игра окончена. Ничья!");
+    console.log(
+      "%cИгра окончена. Ничья!",
+      "color: cornflowerblue; font-weight: bold;"
+    );
+
     incrementTiesScore();
     updateScores();
 
     resetWinner();
-    toggleGameEnded();
+    toggleGameEnded(true);
+    return "TIE"; // Return "tie" for the tie condition
   }
 
   // Если никто не выиграл, возвращаем null

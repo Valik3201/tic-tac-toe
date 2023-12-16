@@ -1,14 +1,24 @@
 import { checkWinner } from "./checkWinner.js";
+import { findBestMove, logComputerMove } from "./cpuMove.js";
+
+import { cpuMark } from "./gameVsCpu.js";
 
 export let player1Mark = "X";
-
 export let currentPlayer = "X";
+export let winner = null;
+export let gameEnded = false;
+export let board = Array(9).fill("");
 
-export function setCurrentPlayer(n) {
-  currentPlayer = n;
+export let playerType = "";
+
+export function setPlayerType(type) {
+  playerType = type;
 }
 
-export let winner = null;
+export function setCurrentPlayer(mark) {
+  currentPlayer = mark;
+  console.log("Установлен игрок 1:", currentPlayer);
+}
 
 export function resetWinner() {
   winner = null;
@@ -22,13 +32,10 @@ export function setWinnerToCurrentPlayer() {
   winner = currentPlayer;
 }
 
-export let gameEnded = false;
-
-export function toggleGameEnded() {
-  gameEnded = !gameEnded;
+export function toggleGameEnded(newStatus) {
+  gameEnded = newStatus;
+  console.info("Игра окончена:", gameEnded ? "Да" : "Нет");
 }
-
-export let board = Array(9).fill("");
 
 export function resetBoard() {
   board = Array(9).fill("");
@@ -59,7 +66,6 @@ export function toggleCurrentPlayer() {
   if (!gameEnded) {
     currentPlayer = currentPlayer === "X" ? "O" : "X";
   } else {
-    // Если игра завершена, устанавливаем currentPlayer в победителя (если есть)
     currentPlayer = winner || currentPlayer;
   }
 }
@@ -68,10 +74,8 @@ export function updateTurnMark() {
   const turnMarkElement = document.querySelector(".game-board__turn-mark");
 
   if (turnMarkElement) {
-    // Определяем ссылку на иконку в зависимости от текущего игрока
     const iconLink = currentPlayer === "X" ? "#icon-x" : "#icon-o";
 
-    // Устанавливаем новую ссылку на иконку
     turnMarkElement
       .querySelector("use")
       .setAttribute("xlink:href", `./app/assets/icons.svg${iconLink}`);
@@ -79,7 +83,7 @@ export function updateTurnMark() {
 }
 
 export function handlePlayerMove() {
-  checkWinner();
+  checkWinner(board, currentPlayer);
   toggleCurrentPlayer();
   updateTurnMark();
 }
@@ -94,11 +98,14 @@ export function toggleDisplay() {
     gameBoard.style.display = "none";
     menu.style.display = "flex";
   }
+
+  toggleGameEnded(false);
 }
 
 export const handleCellClick = (event) => {
   if (gameEnded) {
-    console.log("Игра завершена. Нельзя поставить метку.");
+    console.log("%cИгра окончена", "color: orangered; font-weight: bold;");
+
     return;
   }
 
@@ -125,8 +132,30 @@ export const handleCellClick = (event) => {
 
     board[index] = currentPlayer;
     console.log("Игрок", currentPlayer, "ставит метку на клетку", index);
+
     handlePlayerMove();
+
+    if (
+      playerType === "cpu" &&
+      !gameEnded &&
+      currentPlayer === cpuMark &&
+      player1Mark !== cpuMark
+    ) {
+      handleComputerMove();
+    }
   } else {
     console.log("Ячейка уже занята!");
   }
 };
+
+export function handleComputerMove() {
+  const computerMoveIndex = findBestMove(board, currentPlayer);
+
+  if (computerMoveIndex !== -1 && currentPlayer === cpuMark) {
+    logComputerMove(computerMoveIndex, currentPlayer);
+    board[computerMoveIndex] = currentPlayer;
+
+    toggleCurrentPlayer();
+    updateTurnMark();
+  }
+}

@@ -1,10 +1,10 @@
-import "./checkWinner.js";
+import "./slider.js";
 import "./gameFunctions.js";
+import "./scores.js";
+import "./checkWinner.js";
 import "./gameVsCpu.js";
 import "./gameVsPlayer.js";
 import "./round.js";
-import "./scores.js";
-import "./slider.js";
 
 import { slideBg } from "./slider.js";
 import {
