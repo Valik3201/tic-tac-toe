@@ -108,24 +108,42 @@ button {
   margin-bottom: 24px;
   margin-top: 17px;
 }
-.game-menu__mark-btn {
-  cursor: pointer;
-  width: 198px;
-  height: 54px;
-  border: none;
+.game-menu__buttons--wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  gap: 0;
+  width: 95%;
+  height: 75%;
+  position: relative;
+  --bg-offset: 0;
 }
-.game-menu__mark-btn--x {
-  background-color: #1a2a33;
-}
-.game-menu__mark-btn--x svg {
-  fill: #a8bfc9;
-}
-.game-menu__mark-btn--o {
+.game-menu__buttons--wrapper::after {
+  content: "";
+  width: 50%;
+  height: 100%;
   background-color: #a8bfc9;
-  border-radius: 10px;
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: var(--bg-offset);
+  transition: left 0.25s ease-in-out;
 }
-.game-menu__mark-btn--o svg {
+.game-menu__buttons--wrapper > .game-menu__mark-btn {
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+.game-menu__buttons--wrapper > .game-menu__mark-btn--x svg, .game-menu__buttons--wrapper > .game-menu__mark-btn--o svg {
+  fill: #a8bfc9;
+  transition: fill 0.25s ease-in;
+}
+.game-menu__buttons--wrapper > .game-menu__mark-btn--x.active svg, .game-menu__buttons--wrapper > .game-menu__mark-btn--o.active svg {
   fill: #1a2a33;
+  transition: fill 0.25s ease-in;
 }
 .game-menu__start-options {
   flex-direction: column;
@@ -163,6 +181,16 @@ button {
   flex-direction: column;
   gap: 20px;
 }
+.game-board__info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.game-board__info .custom-logo {
+  display: flex;
+  justify-content: flex-start;
+  cursor: pointer;
+}
 .game-board__turn-prompt {
   font-weight: 700;
   font-size: 16px;
@@ -172,20 +200,19 @@ button {
   border-radius: 10px;
   background: #1f3641;
   box-shadow: 0px -4px 0px 0px #10212a inset;
-  margin-left: 88px;
-  margin-right: 106px;
 }
 .game-board__button {
-  box-sizing: border-box;
-  border: none;
-  cursor: pointer;
-  height: 52px;
+  display: flex;
+  justify-content: flex-end;
 }
 .game-board__button--restart {
+  border: none;
+  height: 52px;
   padding: 16px;
   border-radius: 10px;
   background-color: #a8bfc9;
   box-shadow: 0px -4px 0px 0px #6b8997 inset;
+  cursor: pointer;
 }
 .game-board__button--restart:hover {
   background-color: #dbe8ed;
