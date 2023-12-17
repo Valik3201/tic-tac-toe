@@ -1,3 +1,103 @@
+@import "variables";
+@import "mixins";
+
 .modal {
-  display: none;
+  visibility: hidden;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  &__wrapper {
+    margin: 15% auto;
+    width: 100%;
+    height: 266px;
+    background-color: $semi-dark-navy;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  &__text {
+    @include apply-heading($heading-xs);
+
+    color: $silver;
+  }
+
+  &__win-message {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 16px;
+    margin-bottom: 24px;
+
+    @include apply-heading($heading-l);
+
+    &.winner-x {
+      color: $light-blue;
+    }
+
+    &.winner-o {
+      color: $light-yellow;
+    }
+
+    &.tied {
+      color: $silver;
+    }
+  }
+
+  &__button,
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 16px;
+    height: 52px;
+    flex-shrink: 0;
+    padding: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    @include apply-heading($heading-xs);
+  }
+
+  &__quit,
+  &__cancel {
+    background: $silver;
+    box-shadow: 0px -4px 0px 0px #6b8997 inset;
+
+    &:hover {
+      background-color: $silver-hover;
+    }
+  }
+
+  &__next-round,
+  &__restart-confirmed {
+    background: $light-yellow;
+    box-shadow: 0px -4px 0px 0px #cc8b13 inset;
+
+    &:hover {
+      background-color: $light-yellow-hover;
+    }
+  }
+
+  &#restartGameModal {
+    p.modal__text {
+      @include apply-heading($heading-l);
+
+      margin-bottom: 32px;
+    }
+  }
 }
