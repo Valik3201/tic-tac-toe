@@ -353,6 +353,8 @@ button {
 }
 .modal__win-message.tied {
   color: #a8bfc9;
+  margin-top: 0;
+  margin-bottom: 32px;
 }
 .modal__button,
 .modal button {
