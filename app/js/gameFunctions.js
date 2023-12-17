@@ -55,7 +55,11 @@ export function renderBoard() {
 
   board.forEach((_value, index) => {
     const cellElement = document.createElement("div");
-    cellElement.classList.add("game-board__cell");
+
+    cellElement.classList.add(
+      "game-board__cell",
+      `playing-${currentPlayer.toLowerCase()}`
+    );
     cellElement.setAttribute("data-index", index);
 
     gameBoardField.appendChild(cellElement);
@@ -72,6 +76,7 @@ export function toggleCurrentPlayer() {
 
 export function updateTurnMark() {
   const turnMarkElement = document.querySelector(".game-board__turn-mark");
+  const cells = document.querySelectorAll(".game-board__cell");
 
   if (turnMarkElement) {
     const iconLink = currentPlayer === "X" ? "#icon-x" : "#icon-o";
@@ -80,6 +85,18 @@ export function updateTurnMark() {
       .querySelector("use")
       .setAttribute("xlink:href", `./app/assets/icons.svg${iconLink}`);
   }
+
+  // Обновление классов ячеек
+  cells.forEach((cellElement) => {
+    // Удаляем все классы, связанные с игроками
+    cellElement.classList.remove("playing-x", "playing-o");
+    cellElement.classList.add(`playing-${currentPlayer.toLowerCase()}`);
+
+    if (!gameEnded) {
+      // Добавляем соответствующий класс в зависимости от текущего игрока
+      cellElement.classList.add(`playing-${currentPlayer.toLowerCase()}`);
+    }
+  });
 }
 
 export function handlePlayerMove() {

@@ -2,6 +2,8 @@ import {
   toggleGameEnded,
   setWinnerToCurrentPlayer,
   resetWinner,
+  winner,
+  player1Mark,
 } from "./gameFunctions.js";
 
 import {
@@ -26,10 +28,28 @@ export function checkWinner(board, player) {
   for (const pattern of winPatterns) {
     const [a, b, c] = pattern;
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      // Вывод сообщения о победе в консоль
       console.log(
         "%cИгрок " + player + " побеждает!",
         "color: lawngreen; font-weight: bold;"
       );
+
+      const modal = document.querySelector(".modal");
+      modal.style.visibility = "visible";
+
+      const modalTextWinner = document.querySelector(".modal__text");
+      modalTextWinner.innerHTML =
+        winner !== player1Mark ? "YOU WON!" : "OH NO, YOU LOST…";
+
+      const modalText = document.querySelector(".modal__win-message");
+      modalText.classList.remove("winner-x", "winner-o");
+      modalText.classList.add(`winner-${player.toLowerCase()}`);
+      modalText.innerHTML = `
+          <svg width="64" height="64" fill="currentColor">
+            <use xlink:href="./app/assets/icons.svg#icon-${player.toLowerCase()}"></use>
+          </svg>
+        <p>TAKES THE ROUND</p>
+      `;
 
       toggleGameEnded(true);
 
@@ -58,18 +78,26 @@ export function checkWinner(board, player) {
   }
 
   const isBoardFull = board.every((cell) => cell !== "");
+
   if (isBoardFull) {
     console.log(
       "%cИгра окончена. Ничья!",
       "color: cornflowerblue; font-weight: bold;"
     );
 
+    const modal = document.querySelector(".modal");
+    modal.style.visibility = "visible";
+
+    const modalText = document.querySelector(".modal__win-message");
+    modalText.classList.remove("winner-x", "winner-o");
+    modalText.classList.add("tied");
+    modalText.innerHTML = `<p>ROUND TIED</p>`;
+
     incrementTiesScore();
     updateScores();
 
     resetWinner();
     toggleGameEnded(true);
-    return "TIE"; // Return "tie" for the tie condition
   }
 
   // Если никто не выиграл, возвращаем null
