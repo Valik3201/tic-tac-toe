@@ -69,6 +69,7 @@
       svg {
         mask: url("../assets/icon-x.svg") no-repeat center;
         background-color: $light-blue;
+        cursor: not-allowed;
       }
     }
 
@@ -76,7 +77,18 @@
       svg {
         mask: url("../assets/icon-o.svg") no-repeat center;
         background-color: $light-yellow;
+        cursor: not-allowed;
       }
+    }
+
+    &.playing-x:hover:not(.played-x):not(.played-o) {
+      background: $semi-dark-navy url("../assets/icon-x-outline.svg") no-repeat
+        center;
+    }
+
+    &.playing-o:hover:not(.played-x):not(.played-o) {
+      background: $semi-dark-navy url("../assets/icon-o-outline.svg") no-repeat
+        center;
     }
 
     &.winner-x {
@@ -114,12 +126,10 @@
     }
   }
 
-  &__player-score,
   &__player-1-score {
     background-color: $light-blue;
   }
 
-  &__cpu-score,
   &__player-2-score {
     background-color: $light-yellow;
   }
