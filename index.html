@@ -109,28 +109,29 @@
         <div class="game-board__scores flex flex-ai-c flex-jc-sb"></div>
       </div>
 
-      <div class="modal">
-        <div class="modal__message">
-          <p class="modal__text">Oh no, you lost</p>
-          <p class="modal__text modal__win-message">
-            You won! Player
-            <span class="modal__player-number">1</span> wins!
-          </p>
+      <div class="modal" id="roundResultModal">
+        <div class="modal__wrapper">
+          <div class="modal__content">
+            <p class="modal__text"></p>
+            <div class="modal__text modal__win-message"></div>
+
+            <div class="modal__button">
+              <button class="modal__quit">Quit</button>
+              <button class="modal__next-round">Next round</button>
+            </div>
+          </div>
         </div>
 
         <div class="modal" id="restartGameModal">
-          <p class="modal__text">Restart the game?</p>
-          <button class="modal__button modal__cancel">No, cancel</button>
-          <button class="modal__button modal__restart-confirmed">
-            Yes, restart
-          </button>
-        </div>
-
-        <div class="modal" id="roundResultModal">
-          <p class="modal__text modal__winner-text">takes the round</p>
-          <p class="modal__text modal__round-tied">Round tied</p>
-          <button class="modal__button modal__quit">Quit</button>
-          <button class="modal__button modal__next-round">Next round</button>
+          <div class="modal__wrapper">
+            <div class="modal__content">
+              <p class="modal__text">Restart game?</p>
+              <div class="modal__button">
+                <button class="modal__cancel">No, cancel</button>
+                <button class="modal__restart-confirmed">Yes, restart</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
