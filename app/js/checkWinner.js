@@ -6,6 +6,8 @@ import {
   player1Mark,
 } from "./gameFunctions.js";
 
+import { cpuMark } from "./gameVsCpu.js";
+
 import {
   updateScores,
   incrementPlayer1Score,
@@ -25,8 +27,11 @@ export function checkWinner(board, player) {
     [2, 4, 6], // Диагонали
   ];
 
+  const isBoardFull = board.every((cell) => cell !== "");
+
   for (const pattern of winPatterns) {
     const [a, b, c] = pattern;
+
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
       // Вывод сообщения о победе в консоль
       console.log(
@@ -37,19 +42,24 @@ export function checkWinner(board, player) {
       const modal = document.querySelector(".modal");
       modal.style.visibility = "visible";
 
-      const modalTextWinner = document.querySelector(".modal__text");
-      modalTextWinner.innerHTML =
-        winner !== player1Mark ? "YOU WON!" : "OH NO, YOU LOST…";
+      if (!isBoardFull) {
+        const modalTextWinner = document.querySelector(".modal__text");
+
+        if (player === player1Mark && player !== cpuMark) {
+          modalTextWinner.innerHTML = "YOU WON!";
+        } else {
+          modalTextWinner.innerHTML = "OH NO, YOU LOST…";
+        }
+      }
 
       const modalText = document.querySelector(".modal__win-message");
-      modalText.classList.remove("winner-x", "winner-o");
+      modalText.classList.remove("winner-x", "winner-o", "tied");
       modalText.classList.add(`winner-${player.toLowerCase()}`);
       modalText.innerHTML = `
           <svg width="64" height="64" fill="currentColor">
             <use xlink:href="./app/assets/icons.svg#icon-${player.toLowerCase()}"></use>
           </svg>
-        <p>TAKES THE ROUND</p>
-      `;
+        <p>TAKES THE ROUND</p>`;
 
       toggleGameEnded(true);
 
@@ -70,14 +80,12 @@ export function checkWinner(board, player) {
             `.game-board__cell[data-index="${index}"]`
           );
           cell.classList.add(`winner-${player.toLowerCase()}`);
-        }, i * 500); // Задержка в миллисекундах между добавлениями классов
+        }, i * 500);
       });
 
       return pattern; // Возвращаем выигрышную комбинацию
     }
   }
-
-  const isBoardFull = board.every((cell) => cell !== "");
 
   if (isBoardFull) {
     console.log(
@@ -87,6 +95,9 @@ export function checkWinner(board, player) {
 
     const modal = document.querySelector(".modal");
     modal.style.visibility = "visible";
+
+    const modalTextWinner = document.querySelector(".modal__text");
+    modalTextWinner.innerHTML = "";
 
     const modalText = document.querySelector(".modal__win-message");
     modalText.classList.remove("winner-x", "winner-o");
