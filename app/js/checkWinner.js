@@ -2,7 +2,6 @@ import {
   toggleGameEnded,
   setWinnerToCurrentPlayer,
   resetWinner,
-  winner,
   player1Mark,
 } from "./gameFunctions.js";
 
@@ -14,6 +13,8 @@ import {
   incrementPlayer2Score,
   incrementTiesScore,
 } from "./scores.js";
+
+import { showModal } from "./round.js";
 
 export function checkWinner(board, player) {
   const winPatterns = [
@@ -39,8 +40,9 @@ export function checkWinner(board, player) {
         "color: lawngreen; font-weight: bold;"
       );
 
-      const modal = document.querySelector(".modal");
-      modal.style.visibility = "visible";
+      setTimeout(() => {
+        showModal();
+      }, 1000);
 
       if (!isBoardFull) {
         const modalTextWinner = document.querySelector(".modal__text");
@@ -80,7 +82,7 @@ export function checkWinner(board, player) {
             `.game-board__cell[data-index="${index}"]`
           );
           cell.classList.add(`winner-${player.toLowerCase()}`);
-        }, i * 500);
+        }, i * 300);
       });
 
       return pattern; // Возвращаем выигрышную комбинацию
@@ -92,9 +94,9 @@ export function checkWinner(board, player) {
       "%cИгра окончена. Ничья!",
       "color: cornflowerblue; font-weight: bold;"
     );
-
-    const modal = document.querySelector(".modal");
-    modal.style.visibility = "visible";
+    setTimeout(() => {
+      showModal();
+    }, 500);
 
     const modalTextWinner = document.querySelector(".modal__text");
     modalTextWinner.innerHTML = "";

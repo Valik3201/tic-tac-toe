@@ -1,5 +1,6 @@
 @import "variables";
 @import "mixins";
+@import "animations";
 
 .modal {
   visibility: hidden;
@@ -11,6 +12,30 @@
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.5);
+
+  &.show {
+    transform: scaleY(0.01) scaleX(0);
+    animation: unfoldIn 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    visibility: visible;
+
+    .modal__wrapper {
+      .modal__content {
+        transform: scale(0);
+        animation: zoomIn 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+      }
+    }
+
+    &.out {
+      transform: scale(1);
+      animation: unfoldOut 1s 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+
+      .modal__wrapper {
+        .modal__content {
+          animation: zoomOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+      }
+    }
+  }
 
   &__wrapper {
     margin: 15% auto;

@@ -3,82 +3,80 @@ import {
   resetBoard,
   toggleGameEnded,
   updateTurnMark,
-  setWinnerToCurrentPlayer,
   playerType,
   currentPlayer,
   handleComputerMove,
   toggleDisplay,
   setCurrentPlayer,
   resetWinner,
+  winner,
 } from "./gameFunctions.js";
 
-import { winner } from "./gameFunctions.js";
+import { cpuMark } from "./gameVsCpu.js";
 
+const modal = document.querySelector(".modal");
 const nextRoundBtn = document.querySelector(".modal__next-round");
+const restartBtn = document.querySelector(".game-board__button--restart");
+const quitBtn = document.querySelector(".modal__quit");
 
-function nextRound() {
+export function showModal() {
   const modal = document.querySelector(".modal");
-  modal.style.visibility = "hidden";
+  modal.classList.remove("show", "out");
+  modal.classList.add("show");
+}
 
+export function hideModal() {
+  const modal = document.querySelector(".modal");
+  modal.classList.add("out");
+}
+
+function clearBoard() {
   const cells = document.querySelectorAll(".game-board__cell");
   cells.forEach((cell) => {
     cell.innerHTML = "";
     cell.classList.remove("played-x", "played-o", "winner-x", "winner-o");
   });
+}
 
+function resetGame() {
+  clearBoard();
   resetBoard();
   updateCurrentPlayer();
   updateTurnMark();
   toggleGameEnded(false);
 
-  if ((playerType === "cpu") & (winner === currentPlayer)) {
+  if ((playerType === "cpu" && winner === currentPlayer) || cpuMark === "X") {
     handleComputerMove();
   }
 }
 
-nextRoundBtn.addEventListener("click", nextRound);
-
-const restartBtn = document.querySelector(".game-board__button--restart");
+nextRoundBtn.addEventListener("click", () => {
+  hideModal();
+  resetGame();
+});
 
 export function restartGame() {
-  const modal = document.querySelector("#restartGameModal");
-  modal.style.visibility = "visible";
+  const modalRestart = document.querySelector("#restartGameModal");
+  modalRestart.classList.remove("show", "out");
+  modalRestart.classList.add("show");
 
   const confirmBtn = document.querySelector(".modal__restart-confirmed");
   const cancelBtn = document.querySelector(".modal__cancel");
 
   confirmBtn.addEventListener("click", () => {
-    modal.style.visibility = "hidden";
-
-    const cells = document.querySelectorAll(".game-board__cell");
-    cells.forEach((cell) => {
-      cell.innerHTML = "";
-      cell.classList.remove("played-x", "played-o", "winner-x", "winner-o");
-    });
-
-    resetBoard();
-    updateCurrentPlayer();
-    updateTurnMark();
-    toggleGameEnded(false);
-
-    if ((playerType === "cpu") & (winner === currentPlayer)) {
-      handleComputerMove();
-    }
+    modalRestart.classList.add("out");
+    resetGame();
   });
 
   cancelBtn.addEventListener("click", () => {
-    modal.style.visibility = "hidden";
+    modalRestart.classList.add("out");
   });
 }
 
 restartBtn.addEventListener("click", restartGame);
 
-const quitBtn = document.querySelector(".modal__quit");
-
 export function quitGame() {
-  const modal = document.querySelector(".modal");
-  modal.style.visibility = "hidden";
-
+  hideModal();
   toggleGameEnded(true);
   toggleDisplay();
   resetWinner();

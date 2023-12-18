@@ -305,6 +305,44 @@ button {
   letter-spacing: 1.5px;
 }
 
+@keyframes unfoldIn {
+  0% {
+    transform: scaleY(0.002) scaleX(0);
+  }
+  50% {
+    transform: scaleY(0.002) scaleX(1);
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+}
+@keyframes unfoldOut {
+  0% {
+    transform: scaleY(1) scaleX(1);
+  }
+  50% {
+    transform: scaleY(0.002) scaleX(1);
+  }
+  100% {
+    transform: scaleY(0.002) scaleX(0);
+  }
+}
+@keyframes zoomIn {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
 .modal {
   visibility: hidden;
   position: fixed;
@@ -315,6 +353,22 @@ button {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.5);
+}
+.modal.show {
+  transform: scaleY(0.01) scaleX(0);
+  animation: unfoldIn 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  visibility: visible;
+}
+.modal.show .modal__wrapper .modal__content {
+  transform: scale(0);
+  animation: zoomIn 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+.modal.show.out {
+  transform: scale(1);
+  animation: unfoldOut 1s 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+.modal.show.out .modal__wrapper .modal__content {
+  animation: zoomOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 .modal__wrapper {
   margin: 15% auto;
@@ -393,4 +447,43 @@ button {
   font-size: 40px;
   letter-spacing: 2.5px;
   margin-bottom: 32px;
+}
+
+@keyframes unfoldIn {
+  0% {
+    transform: scaleY(0.002) scaleX(0);
+  }
+  50% {
+    transform: scaleY(0.002) scaleX(1);
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+  }
+}
+@keyframes unfoldOut {
+  0% {
+    transform: scaleY(1) scaleX(1);
+  }
+  50% {
+    transform: scaleY(0.002) scaleX(1);
+  }
+  100% {
+    transform: scaleY(0.002) scaleX(0);
+  }
+}
+@keyframes zoomIn {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
 }/*# sourceMappingURL=styles.css.map */
