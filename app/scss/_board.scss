@@ -36,25 +36,16 @@
 
     gap: 9px;
     padding: 9px 15px 13px;
-    border-radius: 10px;
+    border-radius: 5px;
     background: $semi-dark-navy;
     box-shadow: 0px -4px 0px 0px #10212a inset;
 
     @include breakpoint-up(tablet) {
       gap: 13px;
       padding: 13px 30px 19px;
+      border-radius: 10px;
 
       @include apply-heading($heading-xs);
-    }
-
-    svg.game-board__turn-mark {
-      width: 15px;
-      height: 15px;
-
-      @include breakpoint-up(tablet) {
-        width: 20px;
-        height: 20px;
-      }
     }
   }
 
@@ -67,7 +58,7 @@
       width: 40px;
       height: 40px;
       padding: 8px;
-      border-radius: 10px;
+      border-radius: 5px;
       background-color: $silver;
       box-shadow: 0px -4px 0px 0px #6b8997 inset;
       cursor: pointer;
@@ -76,20 +67,24 @@
         width: 52px;
         height: 52px;
         padding: 16px;
-      }
-
-      svg {
-        width: 15px;
-        height: 15px;
-
-        @include breakpoint-up(tablet) {
-          width: 20px;
-          height: 20px;
-        }
+        border-radius: 10px;
       }
 
       &:hover {
         background-color: $silver-hover;
+      }
+    }
+  }
+
+  &__turn-prompt,
+  &__button--restart {
+    svg {
+      width: 15px;
+      height: 15px;
+
+      @include breakpoint-up(tablet) {
+        width: 20px;
+        height: 20px;
       }
     }
   }
@@ -130,42 +125,31 @@
     &.played-x {
       svg {
         mask: url("../assets/icon-x.svg") no-repeat center;
-        mask-size: 40px;
         background-color: $light-blue;
         cursor: not-allowed;
-
-        @include breakpoint-up(tablet) {
-          mask-size: 64px;
-        }
       }
     }
 
     &.played-o {
       svg {
         mask: url("../assets/icon-o.svg") no-repeat center;
-        mask-size: 40px;
         background-color: $light-yellow;
         cursor: not-allowed;
-
-        @include breakpoint-up(tablet) {
-          mask-size: 64px;
-        }
       }
     }
 
     &.playing-x:hover:not(.played-x):not(.played-o) {
       background: $semi-dark-navy url("../assets/icon-x-outline.svg") no-repeat
         center;
-      background-size: 40px auto;
-
-      @include breakpoint-up(tablet) {
-        background-size: 64px auto;
-      }
     }
 
     &.playing-o:hover:not(.played-x):not(.played-o) {
       background: $semi-dark-navy url("../assets/icon-o-outline.svg") no-repeat
         center;
+    }
+
+    &.playing-x:hover:not(.played-x):not(.played-o),
+    &.playing-o:hover:not(.played-x):not(.played-o) {
       background-size: 40px auto;
 
       @include breakpoint-up(tablet) {
@@ -177,13 +161,8 @@
       background-color: $light-blue;
       svg {
         mask: url("../assets/icon-x.svg") no-repeat center;
-        mask-size: 40px;
         background-color: $semi-dark-navy;
         transition: background-color 0.5s ease-in;
-
-        @include breakpoint-up(tablet) {
-          mask-size: 64px;
-        }
       }
     }
 
@@ -191,13 +170,19 @@
       background-color: $light-yellow;
       svg {
         mask: url("../assets/icon-o.svg") no-repeat center;
-        mask-size: 40px;
         background-color: $semi-dark-navy;
         transition: background-color 0.5s ease-in;
+      }
+    }
 
-        @include breakpoint-up(tablet) {
-          mask-size: 64px;
-        }
+    &.played-x svg,
+    &.played-o svg,
+    &.winner-x svg,
+    &.winner-o svg {
+      mask-size: 40px;
+
+      @include breakpoint-up(tablet) {
+        mask-size: 64px;
       }
     }
   }

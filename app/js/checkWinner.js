@@ -58,7 +58,7 @@ export function checkWinner(board, player) {
       modalText.classList.remove("winner-x", "winner-o", "tied");
       modalText.classList.add(`winner-${player.toLowerCase()}`);
       modalText.innerHTML = `
-          <svg width="64" height="64" fill="currentColor">
+          <svg fill="currentColor">
             <use xlink:href="./app/assets/icons.svg#icon-${player.toLowerCase()}"></use>
           </svg>
         <p>TAKES THE ROUND</p>`;
