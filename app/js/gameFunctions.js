@@ -86,14 +86,11 @@ export function updateTurnMark() {
       .setAttribute("xlink:href", `./app/assets/icons.svg${iconLink}`);
   }
 
-  // Обновление классов ячеек
   cells.forEach((cellElement) => {
     // Удаляем все классы, связанные с игроками
     cellElement.classList.remove("playing-x", "playing-o");
-    cellElement.classList.add(`playing-${currentPlayer.toLowerCase()}`);
 
-    if (!gameEnded) {
-      // Добавляем соответствующий класс в зависимости от текущего игрока
+    if (playerType !== "cpu" || player1Mark === currentPlayer) {
       cellElement.classList.add(`playing-${currentPlayer.toLowerCase()}`);
     }
   });
@@ -121,8 +118,12 @@ export function toggleDisplay() {
 
 export const handleCellClick = (event) => {
   if (gameEnded) {
-    console.log("%cИгра окончена", "color: orangered; font-weight: bold;");
+    console.log("Игра окончена");
+    return;
+  }
 
+  if (!gameEnded && playerType === "cpu" && currentPlayer !== player1Mark) {
+    console.log("Ход противника - ", currentPlayer);
     return;
   }
 
@@ -167,10 +168,12 @@ export function handleComputerMove() {
   const computerMoveIndex = findBestMove(board, currentPlayer);
 
   if (computerMoveIndex !== -1 && currentPlayer === cpuMark) {
-    logComputerMove(computerMoveIndex, currentPlayer);
-    board[computerMoveIndex] = currentPlayer;
+    setTimeout(() => {
+      logComputerMove(computerMoveIndex, cpuMark);
+      board[computerMoveIndex] = cpuMark;
 
-    toggleCurrentPlayer();
-    updateTurnMark();
+      toggleCurrentPlayer();
+      updateTurnMark();
+    }, 1000);
   }
 }

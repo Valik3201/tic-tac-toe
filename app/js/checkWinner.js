@@ -35,13 +35,10 @@ export function checkWinner(board, player) {
 
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
       // Вывод сообщения о победе в консоль
-      console.log(
-        "%cИгрок " + player + " побеждает!",
-        "color: lawngreen; font-weight: bold;"
-      );
+      console.log("Игрок " + player + " побеждает!");
 
       setTimeout(() => {
-        showModal();
+        showModal("roundResultModal");
       }, 1000);
 
       if (!isBoardFull) {
@@ -90,12 +87,9 @@ export function checkWinner(board, player) {
   }
 
   if (isBoardFull) {
-    console.log(
-      "%cИгра окончена. Ничья!",
-      "color: cornflowerblue; font-weight: bold;"
-    );
+    console.log("Игра окончена. Ничья!");
     setTimeout(() => {
-      showModal();
+      showModal("roundResultModal");
     }, 500);
 
     const modalTextWinner = document.querySelector(".modal__text");

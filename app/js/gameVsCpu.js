@@ -24,7 +24,7 @@ const vsCpuButton = document.querySelector(".game-menu__start-btn--vs-cpu");
 export function startVsCPU() {
   setPlayerType("cpu");
 
-  cpuMark = currentPlayer === "X" ? "O" : "X";
+  cpuMark = player1Mark === "X" ? "O" : "X";
   console.log("Метка игрока CPU :", cpuMark);
 
   // Сброс переменных игры

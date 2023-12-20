@@ -18,14 +18,14 @@ const nextRoundBtn = document.querySelector(".modal__next-round");
 const restartBtn = document.querySelector(".game-board__button--restart");
 const quitBtn = document.querySelector(".modal__quit");
 
-export function showModal() {
-  const modal = document.querySelector(".modal");
+export function showModal(id) {
+  const modal = document.querySelector(`#${id}`);
   modal.classList.remove("show", "out");
   modal.classList.add("show");
 }
 
-export function hideModal() {
-  const modal = document.querySelector(".modal");
+export function hideModal(id) {
+  const modal = document.querySelector(`#${id}`);
   modal.classList.add("out");
 }
 
@@ -50,32 +50,30 @@ function resetGame() {
 }
 
 nextRoundBtn.addEventListener("click", () => {
-  hideModal();
+  hideModal("roundResultModal");
   resetGame();
 });
 
 export function restartGame() {
-  const modalRestart = document.querySelector("#restartGameModal");
-  modalRestart.classList.remove("show", "out");
-  modalRestart.classList.add("show");
+  showModal("restartGameModal");
 
   const confirmBtn = document.querySelector(".modal__restart-confirmed");
   const cancelBtn = document.querySelector(".modal__cancel");
 
   confirmBtn.addEventListener("click", () => {
-    modalRestart.classList.add("out");
+    hideModal("restartGameModal");
     resetGame();
   });
 
   cancelBtn.addEventListener("click", () => {
-    modalRestart.classList.add("out");
+    hideModal("restartGameModal");
   });
 }
 
 restartBtn.addEventListener("click", restartGame);
 
 export function quitGame() {
-  hideModal();
+  hideModal("roundResultModal");
   toggleGameEnded(true);
   toggleDisplay();
   resetWinner();
