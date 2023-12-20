@@ -27,7 +27,3 @@ buttonO.addEventListener("click", () => {
 });
 
 gameBoard.style.display = "none";
-
-const logoElement = document.querySelector(".game-board__info .custom-logo");
-
-logoElement.addEventListener("click", toggleDisplay);

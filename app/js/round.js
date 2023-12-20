@@ -14,7 +14,6 @@ import {
 
 import { cpuMark } from "./gameVsCpu.js";
 
-const modal = document.querySelector(".modal");
 const nextRoundBtn = document.querySelector(".modal__next-round");
 const restartBtn = document.querySelector(".game-board__button--restart");
 const quitBtn = document.querySelector(".modal__quit");
@@ -84,3 +83,7 @@ export function quitGame() {
 }
 
 quitBtn.addEventListener("click", quitGame);
+
+const logoElement = document.querySelector(".game-board__info .custom-logo");
+
+logoElement.addEventListener("click", quitGame);
