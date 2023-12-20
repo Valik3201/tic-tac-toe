@@ -137,6 +137,7 @@ button {
   transition: left 0.25s ease-in-out;
 }
 .game-menu__buttons--wrapper > .game-menu__mark-btn {
+  width: 100%;
   border: none;
   cursor: pointer;
   background: transparent;
