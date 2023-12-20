@@ -3,6 +3,7 @@ import {
   setWinnerToCurrentPlayer,
   resetWinner,
   player1Mark,
+  playerType,
 } from "./gameFunctions.js";
 
 import { cpuMark } from "./gameVsCpu.js";
@@ -34,43 +35,23 @@ export function checkWinner(board, player) {
     const [a, b, c] = pattern;
 
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-      // Вывод сообщения о победе в консоль
-      console.log("Игрок " + player + " побеждает!");
-
-      setTimeout(() => {
-        showModal("roundResultModal");
-      }, 1000);
-
       if (!isBoardFull) {
         const modalTextWinner = document.querySelector(".modal__text");
 
-        if (player === player1Mark && player !== cpuMark) {
-          modalTextWinner.innerHTML = "YOU WON!";
+        if (playerType !== "cpu") {
+          if (player === player1Mark) {
+            modalTextWinner.innerHTML = "PLAYER 1 WINS!";
+          } else {
+            modalTextWinner.innerHTML = "PLAYER 2 WINS!";
+          }
         } else {
-          modalTextWinner.innerHTML = "OH NO, YOU LOST…";
+          if (player === player1Mark && player !== cpuMark) {
+            modalTextWinner.innerHTML = "YOU WON!";
+          } else {
+            modalTextWinner.innerHTML = "OH NO, YOU LOST…";
+          }
         }
       }
-
-      const modalText = document.querySelector(".modal__win-message");
-      modalText.classList.remove("winner-x", "winner-o", "tied");
-      modalText.classList.add(`winner-${player.toLowerCase()}`);
-      modalText.innerHTML = `
-          <svg fill="currentColor">
-            <use xlink:href="./app/assets/icons.svg#icon-${player.toLowerCase()}"></use>
-          </svg>
-        <p>TAKES THE ROUND</p>`;
-
-      toggleGameEnded(true);
-
-      setWinnerToCurrentPlayer();
-
-      if (player === "X") {
-        incrementPlayer1Score();
-      } else if (player === "O") {
-        incrementPlayer2Score();
-      }
-
-      updateScores();
 
       // Добавляем классы выигрышным ячейкам с задержкой
       pattern.forEach((index, i) => {
@@ -81,6 +62,33 @@ export function checkWinner(board, player) {
           cell.classList.add(`winner-${player.toLowerCase()}`);
         }, i * 300);
       });
+
+      const modalText = document.querySelector(".modal__win-message");
+      modalText.classList.remove("winner-x", "winner-o", "tied");
+      modalText.classList.add(`winner-${player.toLowerCase()}`);
+      modalText.innerHTML = `
+          <svg fill="currentColor">
+            <use xlink:href="./app/assets/icons.svg#icon-${player.toLowerCase()}"></use>
+          </svg>
+        <p>TAKES THE ROUND</p>`;
+
+      setTimeout(() => {
+        showModal("roundResultModal");
+      }, 1000);
+
+      console.log("Игрок " + player + " побеждает!");
+
+      if (player === "X") {
+        incrementPlayer1Score();
+      } else if (player === "O") {
+        incrementPlayer2Score();
+      }
+
+      updateScores();
+
+      toggleGameEnded(true);
+
+      setWinnerToCurrentPlayer();
 
       return pattern; // Возвращаем выигрышную комбинацию
     }

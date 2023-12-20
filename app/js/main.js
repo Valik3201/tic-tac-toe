@@ -7,11 +7,7 @@ import "./gameVsPlayer.js";
 import "./round.js";
 
 import { slideBg } from "./slider.js";
-import {
-  gameBoard,
-  choosePlayerAndMark,
-  toggleDisplay,
-} from "./gameFunctions.js";
+import { gameBoard, choosePlayerAndMark } from "./gameFunctions.js";
 
 const buttonX = document.querySelector(".game-menu__mark-btn--x");
 const buttonO = document.querySelector(".game-menu__mark-btn--o");

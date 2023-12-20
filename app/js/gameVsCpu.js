@@ -10,7 +10,6 @@ import {
   handleComputerMove,
   handleCellClick,
   setPlayerType,
-  currentPlayer,
 } from "./gameFunctions.js";
 
 import { resetScores, updateScores } from "./scores.js";
