@@ -1,4 +1,4 @@
-import { checkWinner } from "./checkWinner.js";
+import { checkWinner, displayWinnerResult } from "./checkWinner.js";
 import { findBestMove, logComputerMove } from "./cpuMove.js";
 
 import { cpuMark } from "./gameVsCpu.js";
@@ -97,9 +97,14 @@ export function updateTurnMark() {
 }
 
 export function handlePlayerMove() {
-  checkWinner(board, currentPlayer);
-  toggleCurrentPlayer();
-  updateTurnMark();
+  const result = checkWinner(board, currentPlayer);
+
+  if (result) {
+    displayWinnerResult(result, currentPlayer, playerType);
+  } else {
+    toggleCurrentPlayer();
+    updateTurnMark();
+  }
 }
 
 export function toggleDisplay() {
@@ -172,8 +177,7 @@ export function handleComputerMove() {
       logComputerMove(computerMoveIndex, cpuMark);
       board[computerMoveIndex] = cpuMark;
 
-      toggleCurrentPlayer();
-      updateTurnMark();
+      handlePlayerMove();
     }, 1000);
   }
 }

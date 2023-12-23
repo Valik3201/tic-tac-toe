@@ -2,41 +2,69 @@ import { checkWinner } from "./checkWinner.js";
 import { cpuMark } from "./gameVsCpu.js";
 
 export function findBestMove(board, currentPlayer) {
-  // Проверяем, есть ли выигрышный ход для компьютера
+  const oppositePlayer = cpuMark === "X" ? "O" : "X";
+
+  // Рекурсивная функция минимакса
+  function minimax(board, depth, isMaximizingPlayer) {
+    const result = checkWinner(board, currentPlayer);
+
+    if (result !== null) {
+      if (result === "tie") {
+        return 0;
+      }
+
+      return isMaximizingPlayer ? -1 : 1;
+    }
+
+    if (depth >= board.length) {
+      return 0;
+    }
+
+    if (isMaximizingPlayer) {
+      let bestScore = -Infinity;
+
+      for (let i = 0; i < board.length; i++) {
+        if (board[i] === "") {
+          board[i] = currentPlayer;
+          bestScore = Math.max(bestScore, minimax(board, depth + 1, false));
+          board[i] = "";
+        }
+      }
+
+      return bestScore;
+    } else {
+      let bestScore = Infinity;
+
+      for (let i = 0; i < board.length; i++) {
+        if (board[i] === "") {
+          board[i] = oppositePlayer;
+          bestScore = Math.min(bestScore, minimax(board, depth + 1, true));
+          board[i] = "";
+        }
+      }
+
+      return bestScore;
+    }
+  }
+
+  // Находим оптимальный ход
+  let bestMove = -1;
+  let bestScore = -Infinity;
+
   for (let i = 0; i < board.length; i++) {
     if (board[i] === "") {
       board[i] = currentPlayer;
-      if (checkWinner(board, currentPlayer)) {
-        board[i] = ""; // Отменяем ход
-        return i;
+      const moveScore = minimax(board, 0, false);
+      board[i] = "";
+
+      if (moveScore > bestScore) {
+        bestScore = moveScore;
+        bestMove = i;
       }
-      board[i] = ""; // Отменяем ход
     }
   }
 
-  // Если центр свободен, занимаем его
-  if (board[4] === "") {
-    return 4;
-  }
-
-  // Пытаемся занять угловые клетки
-  const corners = [0, 2, 6, 8];
-  for (const corner of corners) {
-    if (board[corner] === "") {
-      return corner;
-    }
-  }
-
-  // Занимаем любую свободную боковую клетку
-  const sideCell = [1, 3, 5, 7];
-  for (const side of sideCell) {
-    if (board[side] === "") {
-      return side;
-    }
-  }
-
-  // Если все клетки заняты, возвращаем -1 (невозможный ход)
-  return -1;
+  return bestMove;
 }
 
 export function logComputerMove(cellIndex, currentPlayer) {
