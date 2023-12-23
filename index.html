@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Meta tags for character set, viewport, theme color, and favicon -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <meta name="theme-color" content="#1a2a33" />
+    <link rel="icon" href="./app/assets/favicon.png" type="image/png" />
+    <!-- Page title and link to stylesheet -->
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="./app/scss/styles.css" />
   </head>
   <body>
     <main class="container">
+      <!-- Game menu section -->
       <div class="game-menu flex">
+        <!-- Custom logo for X and O -->
         <div class="custom-logo">
           <svg
             class="custom-logo--x"
@@ -29,11 +34,13 @@
           </svg>
         </div>
 
+        <!-- Player mark selection section -->
         <div class="game-menu__player-mark flex flex-jc-c flex-ai-c">
           <div class="game-menu__pick-mark">
             <p class="game-menu__prompt">Pick player 1's mark</p>
             <div class="game-menu__buttons flex flex-ai-c flex-jc-c">
               <div class="game-menu__buttons--wrapper">
+                <!-- Buttons for X and O selection -->
                 <button
                   class="game-menu__mark-btn game-menu__mark-btn--x active"
                 >
@@ -48,12 +55,14 @@
                 </button>
               </div>
             </div>
+            <!-- Reminder for X going first -->
             <div class="game-menu__reminder">
-              <p>Remember : X goes first</p>
+              <p>Remember: X goes first</p>
             </div>
           </div>
         </div>
 
+        <!-- Start game options section -->
         <div class="game-menu__start-options flex">
           <button class="game-menu__start-btn game-menu__start-btn--vs-cpu">
             New Game (vs CPU)
@@ -64,7 +73,9 @@
         </div>
       </div>
 
+      <!-- Game board section -->
       <div class="game-board flex">
+        <!-- Game info and custom logo for X and O -->
         <div class="game-board__info flex flex-ai-c">
           <div class="custom-logo">
             <svg
@@ -84,12 +95,14 @@
               <use xlink:href="./app/assets/icons.svg#icon-o"></use>
             </svg>
           </div>
+          <!-- Turn prompt with current player's mark -->
           <div class="game-board__turn-prompt flex flex-ai-c">
             <svg fill="currentColor">
               <use xlink:href="./app/assets/icons.svg#icon-x"></use>
             </svg>
             <p>turn</p>
           </div>
+          <!-- Restart button -->
           <div class="game-board__button">
             <button class="game-board__button--restart">
               <svg fill="currentColor">
@@ -99,17 +112,22 @@
           </div>
         </div>
 
+        <!-- Game board field -->
         <div class="game-board__field"></div>
 
+        <!-- Scores section -->
         <div class="game-board__scores"></div>
       </div>
 
+      <!-- Round result modal -->
       <div class="modal" id="roundResultModal">
         <div class="modal__wrapper">
           <div class="modal__content">
+            <!-- Result and win message -->
             <p class="modal__text"></p>
             <div class="modal__text modal__win-message"></div>
 
+            <!-- Buttons to quit or proceed to the next round -->
             <div class="modal__button">
               <button class="modal__quit">Quit</button>
               <button class="modal__next-round">Next round</button>
@@ -118,10 +136,13 @@
         </div>
       </div>
 
+      <!-- Restart game modal -->
       <div class="modal" id="restartGameModal">
         <div class="modal__wrapper">
           <div class="modal__content">
+            <!-- Restart confirmation message -->
             <p class="modal__text">Restart game?</p>
+            <!-- Buttons to cancel or confirm restart -->
             <div class="modal__button">
               <button class="modal__cancel">No, cancel</button>
               <button class="modal__restart-confirmed">Yes, restart</button>
@@ -131,6 +152,7 @@
       </div>
     </main>
 
+    <!-- JavaScript file inclusion -->
     <script type="module" src="./app/js/main.js"></script>
   </body>
 </html>
