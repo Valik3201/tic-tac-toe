@@ -34,7 +34,7 @@ Despite the challenges faced, this project signifies a significant step in my le
 
 ## Screenshot
 
-<!--[![Name ScreenShot][screenshot]](https://example.com)-->
+[![ScreenShot](https://github.com/Valik3201/tic-tac-toe/raw/main/app/assets/screenshot.png)](https://github.com/Valik3201/tic-tac-toe/blob/main/app/assets/screenshot.png)
 
 ## Links
 
