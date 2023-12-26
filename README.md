@@ -22,15 +22,11 @@ This repository contains my solution to the Tic Tac Toe challenge on Frontend Me
 
 ## About The Project
 
-This repository showcases my solution to the challenging Tic Tac Toe project presented by Frontend Mentor. Admittedly, the development process was intricate, and I invested approximately 33 hours to bring this project to completion.
+Creating the Tic Tac Toe project proved to be both engaging and challenging. Despite the seemingly straightforward concept of the game, it took approximately 33 hours to bring it to life using JavaScript. The main difficulties arose from the need to understand the intricacies of game logic, ranging from displaying hover effects when hovering over a player's move to implementing a smarter algorithm for the computer's moves.
 
-Key aspects of the project include:
+One area of uncertainty in my code lies in the sheer number of JavaScript files – instead of the anticipated couple, I ended up with 11... Attempts to reduce the codebase didn't yield the desired results. I would greatly appreciate any feedback, especially if you come across any bugs. While tests have been conducted and everything should be functioning correctly, there's always a chance something might have slipped through the cracks. 
 
-- **Learning Curve:** The project served as a valuable learning experience, pushing me to explore and implement complex concepts to meet the challenge requirements.
-- **Development Challenges:** Despite the Tic Tac Toe concept being straightforward, the implementation brought forward nuances that required adaptive thinking.
-- **Time Investment:** Acknowledging the learning curve and challenges, the project demanded a total of 33 hours, reflecting the commitment and effort invested.
-
-Despite the challenges faced, this project signifies a significant step in my learning journey, reflecting the time and effort devoted to mastering new skills.
+Please feel free to reach out with any issues or suggestions! 
 
 ## Screenshot
 
