@@ -4,7 +4,7 @@
   <h1>Frontend Mentor - Tic Tac Toe solution</h1>
 </div>
 
-This repository contains my solution to the Tic Tac Toe challenge on Frontend Mentor. Frontend Mentor challenges are designed to help you improve your coding skills by building realistic projects.
+This repository contains my solution to the Tic Tac Toe challenge on Frontend Mentor built with HTML, SCSS and vanilla JavaScript. Frontend Mentor challenges are designed to help improve coding skills by building realistic projects.
 
 <details>
   <summary>Table of Contents</summary>
