@@ -38,8 +38,10 @@ Despite the challenges faced, this project signifies a significant step in my le
 
 ## Links
 
-- Solution URL: [GitHub Repository](https://github.com/Valik3201/tic-tac-toe)
-- Live Site URL: [GitHub Pages](https://valik3201.github.io/tic-tac-toe/)
+- Solution URL:
+  [![Frontend Mentor Badge](https://img.shields.io/badge/Frontend%20Mentor-3F54A3?logo=frontendmentor&logoColor=fff&style=flat)](https://www.frontendmentor.io/solutions/tic-tac-toe-with-html-scss-and-vanilla-javascript-1tzgPa8yJ5)
+- Live Site URL:
+  [![GitHub Pages Badge](https://img.shields.io/badge/GitHub%20Pages-222?logo=githubpages&logoColor=fff&style=flat)](https://valik3201.github.io/tic-tac-toe/)
 
 ## Built With
 
