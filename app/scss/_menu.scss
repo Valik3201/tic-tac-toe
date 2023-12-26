@@ -87,6 +87,10 @@
   &__start-options {
     flex-direction: column;
     gap: 20px;
+
+    button {
+      color: $dark-navy;
+    }
   }
 
   &__start-btn {
