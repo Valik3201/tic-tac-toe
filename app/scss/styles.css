@@ -49,6 +49,12 @@ button {
   }
 }
 
+.invisible-header {
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
+}
+
 .flex {
   display: flex;
 }

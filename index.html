@@ -43,12 +43,16 @@
                 <!-- Buttons for X and O selection -->
                 <button
                   class="game-menu__mark-btn game-menu__mark-btn--x active"
+                  aria-label="X mark"
                 >
                   <svg width="32" height="32" fill="currentColor">
                     <use xlink:href="./app/assets/icons.svg#icon-x"></use>
                   </svg>
                 </button>
-                <button class="game-menu__mark-btn game-menu__mark-btn--o">
+                <button
+                  class="game-menu__mark-btn game-menu__mark-btn--o"
+                  aria-label="O mark"
+                >
                   <svg width="32" height="32" fill="currentColor">
                     <use xlink:href="./app/assets/icons.svg#icon-o"></use>
                   </svg>
@@ -64,6 +68,7 @@
 
         <!-- Start game options section -->
         <div class="game-menu__start-options flex">
+          <h1 class="invisible-header">Let's Game!</h1>
           <button class="game-menu__start-btn game-menu__start-btn--vs-cpu">
             New Game (vs CPU)
           </button>

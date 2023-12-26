@@ -46,6 +46,12 @@ button {
   }
 }
 
+.invisible-header {
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
+}
+
 // Flexbox utility styles
 .flex {
   display: flex;
