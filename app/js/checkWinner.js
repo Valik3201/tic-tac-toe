@@ -16,41 +16,55 @@ import {
 
 import { showModal } from "./round.js";
 
-// Функция для проверки выигрыша
+/**
+ * Checks for a winner or a tie in the game board.
+ *
+ * @param {string[]} board - The current state of the game board.
+ * @param {string} player - The current player ("X" or "O").
+ * @returns {number[] | "tie" | null} - Returns the winning pattern, "tie" for a tie, or null for ongoing game.
+ */
 export function checkWinner(board, player) {
   const winPatterns = [
     [0, 1, 2],
     [3, 4, 5],
-    [6, 7, 8], // Горизонтальные линии
+    [6, 7, 8], // Horizontal lines
     [0, 3, 6],
     [1, 4, 7],
-    [2, 5, 8], // Вертикальные линии
+    [2, 5, 8], // Vertical lines
     [0, 4, 8],
-    [2, 4, 6], // Диагонали
+    [2, 4, 6], // Diagonals
   ];
 
   for (const pattern of winPatterns) {
     const [a, b, c] = pattern;
 
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-      return pattern; // Возвращаем выигрышную комбинацию
+      return pattern; // Return the winning pattern
     }
   }
 
   const isTie = board.every((cell) => cell !== "");
   if (isTie) {
-    return "tie"; // Возвращаем "tie" при ничьей
+    return "tie"; // Return "tie" for a tie
   }
 
-  return null; // Возвращаем null в случае продолжения игры
+  return null; // Return null for ongoing game
 }
 
-// Функция для отрисовки результатов
+/**
+ * Displays the result of the game in a modal and updates scores accordingly.
+ *
+ * @param {number[] | "tie" | null} result - The result of the game (winning pattern, "tie", or null).
+ * @param {string} player - The current player ("X" or "O").
+ * @param {string} playerType - The type of player ("cpu" or "player").
+ * @param {number[]} pattern - The winning pattern on the game board.
+ * @returns {boolean} - Returns true if the game is over, false otherwise.
+ */
 export function displayWinnerResult(result, player, playerType, pattern) {
   const modalTextWinner = document.querySelector(".modal__text");
 
   if (result === "tie") {
-    console.log("Игра окончена. Ничья!");
+    console.log("Game over. It's a tie!");
 
     setTimeout(() => {
       showModal("roundResultModal");
@@ -59,8 +73,9 @@ export function displayWinnerResult(result, player, playerType, pattern) {
       updateScores();
 
       resetWinner();
-      toggleGameEnded(true);
     }, 500);
+
+    toggleGameEnded(true);
 
     modalTextWinner.innerHTML = "";
 
@@ -104,12 +119,12 @@ export function displayWinnerResult(result, player, playerType, pattern) {
 
       updateScores();
 
-      console.log("Игрок " + player + " побеждает!");
-
-      toggleGameEnded(true);
+      console.log("Player " + player + " wins!");
 
       setWinnerToCurrentPlayer();
     }, 1000);
+
+    toggleGameEnded(true);
 
     return true;
   }
@@ -117,6 +132,13 @@ export function displayWinnerResult(result, player, playerType, pattern) {
   return false;
 }
 
+/**
+ * Generates the winner text based on player type and result.
+ *
+ * @param {string} player - The current player ("X" or "O").
+ * @param {string} playerType - The type of player ("cpu" or "player").
+ * @returns {string} - The winner text.
+ */
 function getWinnerText(player, playerType) {
   if (playerType !== "cpu") {
     return player === player1Mark ? "PLAYER 1 WINS!" : "PLAYER 2 WINS!";

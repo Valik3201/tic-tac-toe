@@ -1,71 +1,115 @@
 import { checkWinner, displayWinnerResult } from "./checkWinner.js";
 import { findBestMove, logComputerMove } from "./cpuMove.js";
 
+// Importing functions from interface.js
+import { updateTurnMark } from "./interface.js";
+
 import { cpuMark } from "./gameVsCpu.js";
 
+/** @type {string} */
 export let player1Mark = "X";
+
+/** @type {string} */
 export let currentPlayer = "X";
+
+/** @type {string | null} */
 export let winner = null;
+
+/** @type {boolean} */
 export let gameEnded = false;
+
+/** @type {string[]} */
 export let board = Array(9).fill("");
 
+/** @type {string} */
 export let playerType = "";
 
+/**
+ * Sets the player type for the game.
+ *
+ * @param {string} type - The player type ("player" or "cpu").
+ * @returns {void}
+ */
 export function setPlayerType(type) {
   playerType = type;
 }
 
+/**
+ * Sets the current player's mark and updates the console log.
+ *
+ * @param {string} mark - The mark to set for the current player ("X" or "O").
+ * @returns {void}
+ */
 export function setCurrentPlayer(mark) {
   currentPlayer = mark;
-  console.log("Установлен игрок 1:", currentPlayer);
+  console.log("Player 1 set:", currentPlayer);
 }
 
+/**
+ * Resets the winner variable to null.
+ *
+ * @returns {void}
+ */
 export function resetWinner() {
   winner = null;
 }
 
+/**
+ * Updates the current player based on the game winner or sets it to "X" if no winner.
+ *
+ * @returns {void}
+ */
 export function updateCurrentPlayer() {
   currentPlayer = winner || "X";
 }
 
+/**
+ * Sets the winner variable to the current player.
+ *
+ * @returns {void}
+ */
 export function setWinnerToCurrentPlayer() {
   winner = currentPlayer;
 }
 
+/**
+ * Toggles the gameEnded variable to the specified status.
+ *
+ * @param {boolean} newStatus - The new status of the gameEnded variable.
+ * @returns {void}
+ */
 export function toggleGameEnded(newStatus) {
   gameEnded = newStatus;
-  console.info("Игра окончена:", gameEnded ? "Да" : "Нет");
+  console.info("Game ended:", gameEnded ? "Yes" : "No");
 }
 
+/**
+ * Resets the game board to an array filled with empty strings.
+ *
+ * @returns {void}
+ */
 export function resetBoard() {
   board = Array(9).fill("");
 }
 
-export const gameBoard = document.querySelector(".game-board");
-
+/**
+ * Sets the player's mark and the current player based on the chosen mark.
+ *
+ * @param {string} playerMark - The mark chosen by the player ("X" or "O").
+ * @returns {void}
+ */
 export function choosePlayerAndMark(playerMark) {
   player1Mark = playerMark;
   currentPlayer = playerMark;
-  console.log("Метка первого игрока выбрана:", player1Mark);
+  console.log("Player 1 mark chosen:", player1Mark);
 }
 
-export function renderBoard() {
-  const gameBoardField = document.querySelector(".game-board__field");
-  gameBoardField.innerHTML = "";
-
-  board.forEach((_value, index) => {
-    const cellElement = document.createElement("div");
-
-    cellElement.classList.add(
-      "game-board__cell",
-      `playing-${currentPlayer.toLowerCase()}`
-    );
-    cellElement.setAttribute("data-index", index);
-
-    gameBoardField.appendChild(cellElement);
-  });
-}
-
+/**
+ * Toggles the current player between "X" and "O" if the game is not ended.
+ * If the game is ended, sets the current player to the winner or the current player.
+ *
+ * @returns {void}
+ */
 export function toggleCurrentPlayer() {
   if (!gameEnded) {
     currentPlayer = currentPlayer === "X" ? "O" : "X";
@@ -74,28 +118,11 @@ export function toggleCurrentPlayer() {
   }
 }
 
-export function updateTurnMark() {
-  const turnMarkElement = document.querySelector(".game-board__turn-mark");
-  const cells = document.querySelectorAll(".game-board__cell");
-
-  if (turnMarkElement) {
-    const iconLink = currentPlayer === "X" ? "#icon-x" : "#icon-o";
-
-    turnMarkElement
-      .querySelector("use")
-      .setAttribute("xlink:href", `./app/assets/icons.svg${iconLink}`);
-  }
-
-  cells.forEach((cellElement) => {
-    // Удаляем все классы, связанные с игроками
-    cellElement.classList.remove("playing-x", "playing-o");
-
-    if (playerType !== "cpu" || player1Mark === currentPlayer) {
-      cellElement.classList.add(`playing-${currentPlayer.toLowerCase()}`);
-    }
-  });
-}
-
+/**
+ * Handles the player's move by checking for a winner and updating the turn mark or displaying the winner result.
+ *
+ * @returns {void}
+ */
 export function handlePlayerMove() {
   const result = checkWinner(board, currentPlayer);
 
@@ -107,68 +134,11 @@ export function handlePlayerMove() {
   }
 }
 
-export function toggleDisplay() {
-  const menu = document.querySelector(".game-menu");
-
-  if (gameBoard.style.display === "none") {
-    gameBoard.style.display = "flex";
-    menu.style.display = "none";
-  } else {
-    gameBoard.style.display = "none";
-    menu.style.display = "flex";
-  }
-
-  toggleGameEnded(false);
-}
-
-export const handleCellClick = (event) => {
-  if (gameEnded) {
-    console.log("Игра окончена");
-    return;
-  }
-
-  if (!gameEnded && playerType === "cpu" && currentPlayer !== player1Mark) {
-    console.log("Ход противника - ", currentPlayer);
-    return;
-  }
-
-  const cell = event.target;
-  const index = Array.from(cell.parentNode.children).indexOf(cell);
-
-  if (board[index] === "") {
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-
-    const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-    use.setAttribute(
-      "xlink:href",
-      `./app/assets/icons.svg#icon-${currentPlayer.toLowerCase()}`
-    );
-
-    svg.appendChild(use);
-
-    cell.innerHTML = "";
-    cell.appendChild(svg);
-
-    cell.classList.add(`played-${currentPlayer.toLowerCase()}`);
-
-    board[index] = currentPlayer;
-    console.log("Игрок", currentPlayer, "ставит метку на клетку", index);
-
-    handlePlayerMove();
-
-    if (
-      playerType === "cpu" &&
-      !gameEnded &&
-      currentPlayer === cpuMark &&
-      player1Mark !== cpuMark
-    ) {
-      handleComputerMove();
-    }
-  } else {
-    console.log("Ячейка уже занята!");
-  }
-};
-
+/**
+ * Handles the computer's move by finding the best move, logging it, and handling the player's move.
+ *
+ * @returns {void}
+ */
 export function handleComputerMove() {
   const computerMoveIndex = findBestMove(board, currentPlayer);
 

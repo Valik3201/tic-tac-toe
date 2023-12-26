@@ -1,57 +1,82 @@
+/**
+ * Creates an HTML element with optional class name and id.
+ *
+ * @param {string} tag - The HTML tag name for the element.
+ * @param {string} [className] - The optional class name to add to the element.
+ * @param {string} [id] - The optional id to assign to the element.
+ * @returns {HTMLElement} - The created HTML element.
+ */
+function createElement(tag, className, id) {
+  const element = document.createElement(tag);
+  if (className) element.classList.add(className);
+  if (id) element.id = id;
+  return element;
+}
+
+/**
+ * Creates and returns a score element with label and initial value.
+ *
+ * @param {string} labelText - The label text for the score element.
+ * @param {string} scoreId - The id for the score element.
+ * @param {string} initialValue - The initial value for the score element.
+ * @param {string} scoreClass - The class for the score element.
+ * @returns {HTMLElement} - The created score element.
+ */
+function createScoreElement(labelText, scoreId, initialValue, scoreClass) {
+  const scoreDiv = createElement("div", scoreClass);
+  const label = createElement("p", "game-board__score-label");
+  label.textContent = labelText;
+
+  const score = createElement("p", "game-board__score");
+  score.id = scoreId;
+  score.textContent = initialValue;
+
+  scoreDiv.appendChild(label);
+  scoreDiv.appendChild(score);
+
+  return scoreDiv;
+}
+
+/**
+ * Creates and appends score elements for player 1, ties, and player 2.
+ *
+ * @param {string} player1Mark - The mark for player 1.
+ * @param {string} playerType - The type of player ("cpu" or "player").
+ * @returns {void}
+ */
 export function createAndAppendScoreElements(player1Mark, playerType) {
-  const player1ScoreDiv = document.createElement("div");
-  player1ScoreDiv.classList.add("game-board__player-1-score");
+  const scoresContainer = document.querySelector(".game-board__scores");
+  scoresContainer.textContent = "";
 
-  const player1Label = document.createElement("p");
-  player1Label.classList.add("game-board__score-label");
+  let player1Label, player2Label;
 
-  const player1Score = document.createElement("p");
-  player1Score.classList.add("game-board__score");
-  player1Score.id = "player1Score";
-  player1Score.textContent = "0";
-
-  player1ScoreDiv.appendChild(player1Label);
-  player1ScoreDiv.appendChild(player1Score);
-
-  const tiesScoreDiv = document.createElement("div");
-  tiesScoreDiv.classList.add("game-board__ties-score");
-
-  const tiesLabel = document.createElement("p");
-  tiesLabel.classList.add("game-board__score-label");
-  tiesLabel.textContent = "TIES";
-
-  const tiesScore = document.createElement("p");
-  tiesScore.classList.add("game-board__score");
-  tiesScore.id = "tiesScore";
-  tiesScore.textContent = "0";
-
-  tiesScoreDiv.appendChild(tiesLabel);
-  tiesScoreDiv.appendChild(tiesScore);
-
-  const player2ScoreDiv = document.createElement("div");
-  player2ScoreDiv.classList.add("game-board__player-2-score");
-
-  const player2Label = document.createElement("p");
-  player2Label.classList.add("game-board__score-label");
-
-  const player2Score = document.createElement("p");
-  player2Score.classList.add("game-board__score");
-  player2Score.id = "player2Score";
-  player2Score.textContent = "0";
-
-  if (playerType === "player") {
-    player1Label.textContent = `${player1Mark === "X" ? "X (P1)" : "X (P2)"}`;
-    player2Label.textContent = `${player1Mark === "X" ? "O (P2)" : "O (P1)"}`;
-  } else if (playerType === "cpu") {
-    player1Label.textContent = `${player1Mark === "X" ? "X (YOU)" : "X (CPU)"}`;
-    player2Label.textContent = `${player1Mark === "X" ? "O (CPU)" : "O (YOU)"}`;
+  if (playerType === "cpu") {
+    player1Label = `${player1Mark === "X" ? "X (YOU)" : "X (CPU)"}`;
+    player2Label = `${player1Mark === "X" ? "O (CPU)" : "O (YOU)"}`;
+  } else if (playerType === "player") {
+    player1Label = `${player1Mark === "X" ? "X (P1)" : "X (P2)"}`;
+    player2Label = `${player1Mark === "X" ? "O (P2)" : "O (P1)"}`;
   }
 
-  player2ScoreDiv.appendChild(player2Label);
-  player2ScoreDiv.appendChild(player2Score);
+  const player1ScoreDiv = createScoreElement(
+    player1Label,
+    "player1Score",
+    "0",
+    "game-board__player-1-score"
+  );
+  const tiesScoreDiv = createScoreElement(
+    "TIES",
+    "tiesScore",
+    "0",
+    "game-board__ties-score"
+  );
+  const player2ScoreDiv = createScoreElement(
+    player2Label,
+    "player2Score",
+    "0",
+    "game-board__player-2-score"
+  );
 
-  const scoresContainer = document.querySelector(".game-board__scores");
-  scoresContainer.innerHTML = "";
   scoresContainer.appendChild(player1ScoreDiv);
   scoresContainer.appendChild(tiesScoreDiv);
   scoresContainer.appendChild(player2ScoreDiv);
