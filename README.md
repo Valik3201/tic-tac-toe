@@ -46,6 +46,7 @@ Please feel free to reach out with any issues or suggestions!
 - Flexbox
 - CSS Grid
 - Mobile-first workflow
+- Vanilla JavaScript
 - Minimax algorithm 
 
 ## What I Learned
